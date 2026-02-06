@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Quieres ser mi novia?</title>
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ffd1dc,#ffb6c1,#ffe4e1);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  text-align:center;
+  overflow: hidden;
+}
+
+/* SOBRE INICIAL */
+#sobre-container{
+  position:fixed;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ffd1dc,#ffb6c1);
+  z-index:10;
+  transition: opacity 0.5s ease;
+}
+
+#sobre{
+  width:280px;
+  height:180px;
+  background:white;
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:700;
+  color:#d6336c;
+  transition:transform 1s ease;
+}
+
+/* TARJETA */
+.card{
+  display:none;
+  background:white;
+  padding:30px;
+  border-radius:22px;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
+  max-width:400px;
+  width: 90%;
+  animation:pop .6s ease;
+}
+
+@keyframes pop{
+ from{transform:scale(.9);opacity:.5}
+ to{transform:scale(1);opacity:1}
+}
+
+h1, h2{color:#d6336c;}
+p{color:#555;line-height:1.6;}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+button{
+  border:none;
+  padding:12px 22px;
+  border-radius:30px;
+  font-weight:700;
+  cursor:pointer;
+  transition: 0.3s;
+}
+
+#leerBtn, #btnSi {
+  background:#d6336c;
+  color:white;
+}
+
+#btnNo {
+  background: #ff85a1;
+  color: white;
+}
+
+/* MENSAJE FINAL */
+#mensaje-final {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: pop 0.8s ease;
+}
+
+.texto-final {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d6336c;
+  margin-top: 20px;
+}
+
+/* IMÁGENES DECORATIVAS */
+.deco{
+  position:fixed;
+  width:100px;
+  pointer-events:none;
+  animation:float 4s ease-in-out infinite;
+  z-index:0;
+}
+
+@keyframes float{
+  0%, 100%{transform:translateY(0);}
+  50%{transform:translateY(-15px);}
+}
+
+.top-left{top:20px;left:15px;}
+.top-right{top:20px;right:15px;}
+.bottom-left{bottom:20px;left:15px;}
+.bottom-right{bottom:20px;right:15px;}
+
+</style>
+</head>
+<body>
+
+<img src="snoopy1.png" class="deco top-left">
+<img src="snoopy2.png" class="deco top-right" style="animation-delay:.8s">
+<img src="snoopy3.png" class="deco bottom-left" style="animation-delay:1.6s">
+<img src="snoopy4.png" class="deco bottom-right" style="animation-delay:2.2s">
+
+<div id="sobre-container">
+  <div style="font-size:24px;color:#d6336c;font-weight:700;margin-bottom:10px;">Para: Silvana 💕</div>
+  <div id="sobre">💌 Carta especial</div>
+  <div style="margin-top:8px;color:#d6336c;font-weight:600;">De: David 💌</div>
+  <button id="leerBtn">Leer carta</button>
+</div>
+
+<div class="card" id="carta">
+  
+  <div id="contenido-pregunta">
+    <img src="snoopy2.png" style="width:100%;max-width:200px;border-radius:12px;">
+    <h1>Mi Silvana hermosa 💖</h1>
+    <p>Desde que te conocí, mi corazón late más fuerte. Tu sonrisa ilumina mis días y tu forma de ser me enamora cada vez más.</p>
+    <h2>💞 ¿Quieres ser mi novia? 💞</h2>
+    <div class="btn-container">
+      <button id="btnSi">¡SÍ, QUIERO! 💘</button>
+      <button id="btnNo">Lo pensaré... 🤔</button>
+    </div>
+  </div>
+
+  <div id="mensaje-final">
+    <img src="snoopy1.png" style="width:100%;max-width:220px;">
+    <div class="texto-final">
+      ¡ME HACES EL HOMBRE MÁS FELIZ DEL MUNDO! ❤️<br>
+      <span style="font-size: 20px;">Te amo, Silvana.</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Abrir el sobre
+document.getElementById("leerBtn").onclick = () => {
+  document.getElementById("sobre").style.transform = "rotateX(70deg)";
+  setTimeout(()=>{
+    document.getElementById("sobre-container").style.opacity = "0";
+    setTimeout(() => {
+      document.getElementById("sobre-container").style.display = "none";
+      document.getElementById("carta").style.display = "block";
+    }, 500);
+  },900);
+};
+
+// Acción al decir que SÍ
+document.getElementById("btnSi").onclick = () => {
+  document.getElementById("contenido-pregunta").style.display = "none";
+  document.getElementById("mensaje-final").style.display = "flex";
+};
+
+// Botón que huye
+const btnNo = document.getElementById("btnNo");
+btnNo.addEventListener("mouseover", () => {
+  const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
+  const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
+  btnNo.style.position = "fixed";
+  btnNo.style.left = x + "px";
+  btnNo.style.top = y + "px";
+});
+</script>
+
+</body>
+</html>
